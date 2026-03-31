@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نور الهداية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Amiri+Quran&family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold:        #D4A017;
+      --gold-hi:     #F0C84A;
+      --gold-glow:   #FFD060;
+      --gold-dim:    #8A6A12;
+      --gold-pale:   #FFF4CC;
+      --amber:       #E07000;
+      --ember:       #C03800;
+      --bg:          #04010000;
+      --card-border: rgba(212,160,23,0.22);
+      --card-bg:     rgba(28,14,0,0.92);
+    }
+
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      font-family:'Cairo',sans-serif;
+      background:#04010000;
+      color:#fff;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    /* ─────────────────────────────────────
+       LAYERED BACKGROUND
+    ───────────────────────────────────── */
+    #cv{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+    /* deep vignette */
+    .vignette{
+      position:fixed;inset:0;z-index:1;pointer-events:none;
+      background:radial-gradient(ellipse 80% 70% at 50% 40%,transparent 30%,rgba(0,0,0,.55) 100%);
+    }
+
+    /* ─────────────────────────────────────
+       PAGE
+    ───────────────────────────────────── */
+    .page{
+      position:relative;z-index:10;
+      max-width:840px;margin:0 auto;
+      padding:0 22px 120px;
+    }
+
+    /* ─────────────────────────────────────
+       HEADER
+    ───────────────────────────────────── */
+    header{
+      text-align:center;
+      padding:56px 0 36px;
+      position:relative;
+    }
+
+    /* top ambient glow */
+    .top-glow{
+      position:absolute;top:-10px;left:50%;
+      transform:translateX(-50%);
+      width:500px;height:220px;
+      background:radial-gradient(ellipse,rgba(220,150,0,.14) 0%,transparent 70%);
+      filter:blur(28px);pointer-events:none;
+      animation:topglow 4s ease-in-out infinite;
+    }
+    @keyframes topglow{
+      0%,100%{opacity:.7;transform:translateX(-50%) scaleX(1)}
+      50%{opacity:1;transform:translateX(-50%) scaleX(1.12)}
+    }
+
+    /* moon badge */
+    .moon-badge{
+      display:inline-flex;align-items:center;justify-content:center;
+      width:78px;height:78px;border-radius:50%;
+      border:1px solid rgba(212,160,23,.35);
+      background:radial-gradient(circle at 40% 35%,rgba(212,160,23,.12),rgba(0,0,0,.6));
+      box-shadow:0 0 28px rgba(212,160,23,.18),inset 0 0 18px rgba(212,160,23,.06);
+      margin-bottom:20px;
+      position:relative;
+    }
+    .moon-badge::before{
+      content:'';position:absolute;inset:-8px;border-radius:50%;
+      border:1px dashed rgba(212,160,23,.14);
+      animation:rot 24s linear infinite;
+    }
+    .moon-badge::after{
+      content:'';position:absolute;inset:-16px;border-radius:50%;
+      border:1px dashed rgba(212,160,23,.07);
+      animation:rot 16s linear infinite reverse;
+    }
+    @keyframes rot{to{transform:rotate(360deg)}}
+
+    .moon-icon{
+      font-size:2rem;
+      filter:drop-shadow(0 0 14px rgba(255,200,50,.9));
+      animation:moonpulse 3s ease-in-out infinite;
+    }
+    @keyframes moonpulse{
+      0%,100%{filter:drop-shadow(0 0 10px rgba(255,200,50,.7))}
+      50%{filter:drop-shadow(0 0 22px rgba(255,200,50,1))}
+    }
+
+    /* main title */
+    .site-title{
+      font-family:'Reem Kufi',sans-serif;
+      font-size:3.6rem;font-weight:700;
+      background:linear-gradient(180deg,#fffbe6 0%,var(--gold-hi) 35%,var(--gold) 65%,var(--amber) 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      line-height:1.2;margin-bottom:10px;
+      position:relative;
+      filter:drop-shadow(0 0 32px rgba(220,150,0,.55));
+      letter-spacing:4px;
+    }
+
+    .site-tagline{
+      font-family:'Reem Kufi',sans-serif;
+      font-size:.82rem;letter-spacing:6px;
+      color:rgba(212,160,23,.45);
+      margin-bottom:30px;
+      text-transform:uppercase;
+    }
+
+    /* ornament row */
+    .orn-row{
+      display:flex;align-items:center;
+      justify-content:center;gap:12px;
+    }
+    .orn-line{
+      height:1px;width:90px;
+      background:linear-gradient(90deg,transparent,rgba(212,160,23,.4),transparent);
+    }
+    .orn-dia{
+      width:7px;height:7px;
+      background:var(--gold-hi);
+      transform:rotate(45deg);
+      box-shadow:0 0 10px var(--gold-hi),0 0 22px var(--gold-glow);
+      animation:diapulse 2.5s ease-in-out infinite;
+    }
+    .orn-dia.sm{
+      width:4px;height:4px;opacity:.5;
+      animation-delay:.4s;
+    }
+    @keyframes diapulse{
+      0%,100%{box-shadow:0 0 8px var(--gold-hi),0 0 16px var(--gold-glow)}
+      50%{box-shadow:0 0 16px var(--gold-hi),0 0 36px var(--gold-glow),0 0 56px rgba(255,140,0,.35)}
+    }
+
+    /* ─────────────────────────────────────
+       NAVIGATION
+    ───────────────────────────────────── */
+    .nav-bar{
+      display:flex;justify-content:center;margin:34px 0 28px;
+    }
+    .nav-inner{
+      display:flex;
+      background:rgba(212,160,23,.05);
+      border:1px solid rgba(212,160,23,.13);
+      border-radius:60px;padding:4px;
+      gap:2px;
+    }
+    .nav-btn{
+      font-family:'Reem Kufi',sans-serif;
+      font-size:.95rem;font-weight:600;
+      padding:9px 28px;border:none;background:transparent;
+      color:rgba(212,160,23,.45);border-radius:60px;
+      cursor:pointer;transition:all .3s;
+      letter-spacing:2px;
+    }
+    .nav-btn.active{
+      background:linear-gradient(135deg,rgba(212,160,23,.2),rgba(200,90,0,.1));
+      color:var(--gold-hi);
+      box-shadow:0 0 22px rgba(212,160,23,.15),inset 0 0 12px rgba(212,160,23,.06);
+      text-shadow:0 0 18px rgba(255,210,70,.7);
+    }
+
+    /* ─────────────────────────────────────
+       SECTIONS
+    ───────────────────────────────────── */
+    .section{display:none}
+    .section.active{display:block;animation:fadein .5s ease}
+    @keyframes fadein{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+    /* ─────────────────────────────────────
+       CONTENT CARD
+    ───────────────────────────────────── */
+    .content-card{
+      position:relative;
+      background:var(--card-bg);
+      border:1px solid var(--card-border);
+      border-radius:22px;
+      padding:54px 46px 46px;
+      overflow:hidden;
+      box-shadow:
+        0 0 0 1px rgba(212,160,23,.07),
+        0 24px 90px rgba(0,0,0,.65),
+        inset 0 1px 0 rgba(212,160,23,.12);
+      backdrop-filter:blur(2px);
+    }
+
+    /* top shimmer border */
+    .content-card::before{
+      content:'';position:absolute;
+      top:0;left:8%;right:8%;height:1px;
+      background:linear-gradient(90deg,transparent,var(--gold-dim),var(--gold-hi),var(--gold-glow),var(--gold-hi),var(--gold-dim),transparent);
+      box-shadow:0 0 16px 2px rgba(212,160,23,.3);
+    }
+
+    /* pulsing glow */
+    .content-card::after{
+      content:'';position:absolute;inset:-1px;border-radius:22px;
+      background:transparent;pointer-events:none;
+      box-shadow:0 0 0 1px rgba(212,160,23,.0);
+      animation:cardaura 6s ease-in-out infinite;
+    }
+    @keyframes cardaura{
+      0%,100%{box-shadow:0 0 40px rgba(212,160,23,.04)}
+      50%{box-shadow:0 0 70px rgba(212,160,23,.11)}
+    }
+
+    /* inner ambient blobs */
+    .blob{position:absolute;border-radius:50%;filter:blur(55px);pointer-events:none}
+    .blob-t{width:240px;height:160px;background:rgba(200,120,0,.07);top:-50px;left:50%;transform:translateX(-50%)}
+    .blob-r{width:160px;height:160px;background:rgba(180,60,0,.06);bottom:-40px;left:-30px}
+    .blob-l{width:130px;height:130px;background:rgba(212,160,23,.05);bottom:-30px;right:-20px}
+
+    /* corner brackets */
+    .cc{position:absolute;width:22px;height:22px;opacity:.5}
+    .cc.tl{top:16px;right:16px;border-top:1px solid var(--gold-dim);border-right:1px solid var(--gold-dim)}
+    .cc.tr{top:16px;left:16px;border-top:1px solid var(--gold-dim);border-left:1px solid var(--gold-dim)}
+    .cc.bl{bottom:16px;right:16px;border-bottom:1px solid var(--gold-dim);border-right:1px solid var(--gold-dim)}
+    .cc.br{bottom:16px;left:16px;border-bottom:1px solid var(--gold-dim);border-left:1px solid var(--gold-dim)}
+
+    /* ── Card label — matches the image style ── */
+    .card-label{
+      font-family:'Reem Kufi',sans-serif;
+      font-size:.88rem;font-weight:600;
+      color:var(--gold-dim);
+      letter-spacing:8px;
+      text-align:center;
+      margin-bottom:22px;
+      display:flex;align-items:center;justify-content:center;gap:14px;
+      text-transform:uppercase;
+    }
+    .card-label .lstar{
+      display:inline-block;
+      color:var(--gold-dim);
+      font-size:1rem;
+      animation:startwinkle 3s ease-in-out infinite;
+    }
+    .card-label .lstar:last-child{animation-delay:.8s}
+    @keyframes startwinkle{
+      0%,100%{opacity:.5;filter:drop-shadow(0 0 0 transparent)}
+      50%{opacity:1;filter:drop-shadow(0 0 8px var(--gold-hi))}
+    }
+
+    .card-name{
+      font-family:'Reem Kufi',sans-serif;
+      font-size:1.45rem;font-weight:600;
+      color:var(--gold-hi);
+      text-align:center;margin-bottom:26px;
+      text-shadow:0 0 28px rgba(212,160,23,.55);
+      letter-spacing:3px;
+      line-height:1.6;
+    }
+
+    .card-divider{
+      display:flex;align-items:center;gap:14px;
+      margin:0 auto 30px;width:65%;
+    }
+    .card-div-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(212,160,23,.2),transparent)}
+    .card-div-dot{
+      width:5px;height:5px;flex-shrink:0;
+      background:var(--gold-dim);transform:rotate(45deg);
+      box-shadow:0 0 8px var(--gold-dim);
+    }
+
+    .card-text{
+      font-family:'Amiri Quran','Amiri',serif;
+      font-size:1.72rem;line-height:2.5;
+      text-align:center;color:#fff8e8;
+      text-shadow:0 2px 18px rgba(0,0,0,.5);
+      padding:0 8px;
+    }
+    .card-text .qmark{
+      font-family:'Amiri',serif;
+      color:rgba(212,160,23,.45);font-size:1.4rem;
+    }
+
+    .card-footer{
+      margin-top:32px;padding-top:20px;
+      border-top:1px solid rgba(212,160,23,.1);
+      text-align:center;
+    }
+    .card-src-name{
+      font-family:'Reem Kufi',sans-serif;
+      font-size:.98rem;letter-spacing:3px;
+      color:var(--gold-hi);
+      text-shadow:0 0 14px rgba(212,160,23,.4);
+      display:block;margin-bottom:4px;
+    }
+    .card-src-page{
+      font-size:.82rem;letter-spacing:2px;
+      color:rgba(212,160,23,.35);display:block;
+    }
+
+    /* ─────────────────────────────────────
+       STATES
+    ───────────────────────────────────── */
+    .state-box{text-align:center;padding:72px 20px}
+    .spin-wrap{display:inline-block;width:46px;height:46px;position:relative;margin-bottom:18px}
+    .spin-wrap::before,.spin-wrap::after{
+      content:'';position:absolute;inset:0;border-radius:50%;
+      border:2px solid transparent;
+    }
+    .spin-wrap::before{
+      border-top-color:var(--gold-hi);border-right-color:var(--gold);
+      animation:spin 1s linear infinite;
+    }
+    .spin-wrap::after{
+      inset:8px;border-bottom-color:var(--amber);
+      animation:spin .6s linear infinite reverse;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .state-txt{font-family:'Reem Kufi',sans-serif;letter-spacing:4px;font-size:.85rem;color:rgba(212,160,23,.35)}
+
+    /* ─────────────────────────────────────
+       ARCHIVE
+    ───────────────────────────────────── */
+    .filter-row{display:flex;gap:10px;justify-content:center;margin-bottom:22px}
+    .f-pill{
+      font-family:'Reem Kufi',sans-serif;
+      font-size:.78rem;letter-spacing:3px;
+      padding:6px 20px;border-radius:40px;
+      border:1px solid rgba(212,160,23,.14);
+      background:transparent;color:rgba(212,160,23,.38);
+      cursor:pointer;transition:all .3s;
+    }
+    .f-pill.active,.f-pill:hover{
+      border-color:var(--gold);color:var(--gold-hi);
+      background:rgba(212,160,23,.08);
+      box-shadow:0 0 14px rgba(212,160,23,.1);
+    }
+
+    .arc-list{display:flex;flex-direction:column;gap:13px}
+    .arc-card{
+      background:rgba(212,160,23,.025);
+      border:1px solid rgba(212,160,23,.09);
+      border-radius:16px;padding:20px 26px;
+      transition:all .3s;position:relative;overflow:hidden;
+    }
+    .arc-card:hover{
+      border-color:rgba(212,160,23,.22);
+      background:rgba(212,160,23,.055);
+      box-shadow:0 6px 30px rgba(0,0,0,.35),0 0 22px rgba(212,160,23,.06);
+      transform:translateY(-2px);
+    }
+    /* left accent */
+    .arc-card::after{
+      content:'';position:absolute;
+      right:0;top:12px;bottom:12px;width:2px;
+      border-radius:2px;
+      background:linear-gradient(180deg,transparent,var(--gold-dim),transparent);
+      opacity:0;transition:opacity .3s;
+    }
+    .arc-card:hover::after{opacity:1}
+
+    .arc-badge{
+      display:inline-flex;align-items:center;gap:6px;
+      font-family:'Reem Kufi',sans-serif;
+      font-size:.7rem;letter-spacing:4px;
+      padding:3px 14px;border-radius:30px;margin-bottom:12px;
+    }
+    .bdg-h{background:rgba(220,120,0,.1);color:#e0a040;border:1px solid rgba(220,120,0,.2)}
+    .bdg-a{background:rgba(80,190,120,.07);color:#70cc90;border:1px solid rgba(80,190,120,.16)}
+
+    .arc-txt{
+      font-family:'Amiri','Amiri Quran',serif;
+      font-size:1.15rem;line-height:2.1;
+      color:rgba(255,245,220,.82);
+    }
+    .arc-meta{
+      margin-top:11px;display:flex;justify-content:space-between;
+      flex-wrap:wrap;gap:4px;
+      font-size:.78rem;color:rgba(212,160,23,.28);
+      letter-spacing:1px;
+    }
+
+    /* ─────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────── */
+    footer{text-align:center;padding:50px 20px 40px}
+
+    .foot-orn{
+      display:flex;align-items:center;justify-content:center;gap:14px;
+      margin-bottom:28px;
+    }
+    .fl{height:1px;width:70px;background:linear-gradient(90deg,transparent,rgba(212,160,23,.3))}
+    .fl.rev{background:linear-gradient(90deg,rgba(212,160,23,.3),transparent)}
+    .fs{
+      color:var(--gold-dim);font-size:.85rem;
+      text-shadow:0 0 12px rgba(212,160,23,.6);
+      animation:startwinkle 2.5s ease-in-out infinite;
+    }
+    .fs:nth-child(3){animation-delay:.5s;font-size:1rem;opacity:.8}
+
+    .dev-box{display:flex;flex-direction:column;align-items:center;gap:7px}
+    .dev-lbl{
+      font-family:'Reem Kufi',sans-serif;
+      font-size:.68rem;letter-spacing:6px;
+      color:rgba(212,160,23,.28);text-transform:uppercase;
+    }
+    .dev-name{
+      font-family:'Amiri',serif;font-size:1.5rem;
+      color:var(--gold-hi);
+      text-shadow:0 0 22px rgba(212,160,23,.45);
+      letter-spacing:2px;
+    }
+    .dev-handle{
+      font-family:'Reem Kufi',sans-serif;
+      font-size:.82rem;letter-spacing:3px;
+      color:rgba(212,160,23,.38);text-decoration:none;
+      transition:all .3s;
+    }
+    .dev-handle:hover{color:var(--gold-hi);text-shadow:0 0 14px rgba(212,160,23,.5)}
+
+    .copy{
+      margin-top:22px;
+      font-family:'Reem Kufi',sans-serif;
+      font-size:.68rem;letter-spacing:3px;
+      color:rgba(212,160,23,.18);
+    }
+
+    /* ─────────────────────────────────────
+       FLOATING SPARKS
+    ───────────────────────────────────── */
+    .spark{
+      position:fixed;border-radius:50%;pointer-events:none;z-index:2;
+      animation:sparkrise linear infinite;opacity:0;
+    }
+    @keyframes sparkrise{
+      0%{opacity:0;transform:translateY(0) scale(1)}
+      12%{opacity:.8}
+      80%{opacity:.3}
+      100%{opacity:0;transform:translateY(-220px) scale(.15) translateX(var(--d))}
+    }
+
+    /* ─────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────── */
+    @media(max-width:600px){
+      .site-title{font-size:2.7rem;letter-spacing:2px}
+      .content-card{padding:38px 20px 32px}
+      .card-text{font-size:1.4rem;line-height:2.2}
+      .nav-btn{padding:8px 16px;font-size:.85rem;letter-spacing:1px}
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="cv"></canvas>
+<div class="vignette"></div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="top-glow"></div>
+    <div class="moon-badge">
+      <span class="moon-icon">☽</span>
+    </div>
+    <h1 class="site-title">نور الهداية</h1>
+    <p class="site-tagline">أحاديث وآيات قرآنية يومية</p>
+    <div class="orn-row">
+      <div class="orn-line"></div>
+      <div class="orn-dia sm"></div>
+      <div class="orn-dia"></div>
+      <div class="orn-dia sm"></div>
+      <div class="orn-line"></div>
+    </div>
+  </header>
+
+  <!-- TABS -->
+  <div class="nav-bar">
+    <div class="nav-inner">
+      <button class="nav-btn active" onclick="showTab('hadith',this)">حديث اليوم</button>
+      <button class="nav-btn" onclick="showTab('ayah',this)">آية اليوم</button>
+      <button class="nav-btn" onclick="showTab('archive',this)">الأرشيف</button>
+    </div>
+  </div>
+
+  <!-- HADITH -->
+  <div id="sec-hadith" class="section active">
+    <div id="hadith-wrap">
+      <div class="state-box"><div class="spin-wrap"></div><p class="state-txt">جاري التحميل</p></div>
+    </div>
+  </div>
+
+  <!-- AYAH -->
+  <div id="sec-ayah" class="section">
+    <div id="ayah-wrap">
+      <div class="state-box"><div class="spin-wrap"></div><p class="state-txt">جاري التحميل</p></div>
+    </div>
+  </div>
+
+  <!-- ARCHIVE -->
+  <div id="sec-archive" class="section">
+    <div class="filter-row">
+      <button class="f-pill active" onclick="filterArc('all',this)">الكل</button>
+      <button class="f-pill" onclick="filterArc('hadith',this)">أحاديث</button>
+      <button class="f-pill" onclick="filterArc('ayah',this)">آيات</button>
+    </div>
+    <div id="archive-wrap">
+      <div class="state-box"><div class="spin-wrap"></div><p class="state-txt">جاري التحميل</p></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-orn">
+      <div class="fl rev"></div>
+      <span class="fs">✦</span>
+      <span class="fs">✦</span>
+      <span class="fs">✦</span>
+      <div class="fl"></div>
+    </div>
+    <div class="dev-box">
+      <span class="dev-lbl">تطوير</span>
+      <span class="dev-name">الجـَعفري</span>
+      <a class="dev-handle" href="https://t.me/ntnnnntn" target="_blank">@ntnnnntn</a>
+    </div>
+    <p class="copy">جميع الحقوق محفوظة &copy; 2026</p>
+  </footer>
+
+</div>
+
+<script>
+/* ══ CONFIG ══ */
+const API_BASE = "REPLACE_WITH_YOUR_API_URL/api"; // غيّر هذا إلى: https://your-app.replit.app/api
+
+/* ══ BACKGROUND CANVAS ══ */
+(function(){
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
+  let W, H, stars=[], flames=[];
+
+  class Star{
+    constructor(){
+      this.x=Math.random()*W; this.y=Math.random()*H*.72;
+      this.r=Math.random()*1.3+.2;
+      this.a=Math.random(); this.spd=Math.random()*.007+.002;
+      this.d=1;
+    }
+    tick(){ this.a+=this.spd*this.d; if(this.a>1||this.a<.05) this.d*=-1; }
+    draw(){
+      ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+      // soft cross glow for bright stars
+      if(this.r>1&&this.a>.7){
+        const g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r*5);
+        g.addColorStop(0,`rgba(255,235,160,${this.a*.5})`);
+        g.addColorStop(1,'transparent');
+        ctx.fillStyle=g;
+        ctx.beginPath(); ctx.arc(this.x,this.y,this.r*5,0,Math.PI*2); ctx.fill();
+      }
+      ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,235,160,${this.a*.95})`;
+      ctx.fill();
+    }
+  }
+
+  class Flame{
+    reset(){
+      this.x=Math.random()*W; this.y=H;
+      this.vx=(Math.random()-.5)*2;
+      this.vy=-(Math.random()*4+1.8);
+      this.life=0; this.max=Math.random()*100+55;
+      this.sz=Math.random()*26+10;
+      this.hue=Math.random()*25; // 0=red 25=orange
+    }
+    constructor(){ this.reset(); this.life=Math.random()*100; }
+    tick(){
+      this.x+=this.vx+Math.sin(this.life*.09)*1;
+      this.y+=this.vy; this.vy*=.997;
+      this.sz*=.993; this.life++;
+      if(this.life>this.max||this.sz<1) this.reset();
+    }
+    draw(){
+      const p=this.life/this.max;
+      const a=p<.15?p/.15:1-(p-.15)/.85;
+      const gr=Math.floor(this.hue*5);
+      const g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.sz);
+      g.addColorStop(0,  `rgba(255,${gr+90},20,${a*.95})`);
+      g.addColorStop(.35,`rgba(255,${gr+30},0,${a*.55})`);
+      g.addColorStop(.7, `rgba(180,20,0,${a*.2})`);
+      g.addColorStop(1,  'rgba(80,0,0,0)');
+      ctx.beginPath(); ctx.arc(this.x,this.y,this.sz,0,Math.PI*2);
+      ctx.fillStyle=g; ctx.fill();
+    }
+  }
+
+  function init(){
+    W=cv.width=window.innerWidth;
+    H=cv.height=window.innerHeight;
+    const ns=Math.floor(W*H/3000);
+    stars=[]; for(let i=0;i<ns;i++) stars.push(new Star());
+    flames=[]; for(let i=0;i<300;i++) flames.push(new Flame());
+  }
+
+  function frame(){
+    // BG gradient — very dark, warm black
+    const bg=ctx.createLinearGradient(0,0,0,H);
+    bg.addColorStop(0,'#020101');
+    bg.addColorStop(.55,'#040200');
+    bg.addColorStop(1,'#0c0400');
+    ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+
+    // ambient radial glow near top-center
+    const ag=ctx.createRadialGradient(W/2,H*.3,0,W/2,H*.3,W*.5);
+    ag.addColorStop(0,'rgba(80,35,0,.08)');
+    ag.addColorStop(1,'transparent');
+    ctx.fillStyle=ag; ctx.fillRect(0,0,W,H);
+
+    // stars
+    stars.forEach(s=>{ s.tick(); s.draw(); });
+
+    // fire with screen blend
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    flames.forEach(f=>{ f.tick(); f.draw(); });
+    ctx.restore();
+
+    // fire floor fade
+    const ff=ctx.createLinearGradient(0,H*.68,0,H);
+    ff.addColorStop(0,'rgba(50,10,0,0)');
+    ff.addColorStop(1,'rgba(30,5,0,.7)');
+    ctx.fillStyle=ff; ctx.fillRect(0,H*.68,W,H*.32);
+
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize',init);
+  init(); frame();
+})();
+
+/* ══ SPARKS ══ */
+(function(){
+  function spawn(){
+    const s=document.createElement('div');
+    s.className='spark';
+    const d=(Math.random()-.5)*80;
+    const hue=30+Math.random()*25;
+    s.style.cssText=`
+      left:${Math.random()*100}vw;bottom:0;--d:${d}px;
+      width:${Math.random()*3+1}px;height:${Math.random()*3+1}px;
+      animation-duration:${Math.random()*6+5}s;
+      animation-delay:${Math.random()*4}s;
+      background:hsl(${hue},100%,62%);
+      box-shadow:0 0 5px 1px hsl(${hue},100%,62%);
+    `;
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),14000);
+  }
+  setInterval(spawn,200);
+})();
+
+/* ══ DATA ══ */
+let arcAll=[];
+
+function buildCard(item,label){
+  return `
+  <div class="content-card">
+    <div class="blob blob-t"></div>
+    <div class="blob blob-r"></div>
+    <div class="blob blob-l"></div>
+    <div class="cc tl"></div><div class="cc tr"></div>
+    <div class="cc bl"></div><div class="cc br"></div>
+    <p class="card-label">
+      <span class="lstar">✦</span>
+      ${label}
+      <span class="lstar">✦</span>
+    </p>
+    ${item.name?`<p class="card-name">${item.name}</p>`:''}
+    <div class="card-divider">
+      <div class="card-div-line"></div>
+      <div class="card-div-dot"></div>
+      <div class="card-div-line"></div>
+    </div>
+    <p class="card-text">
+      <span class="qmark">﴿ </span>${item.text}<span class="qmark"> ﴾</span>
+    </p>
+    <div class="card-footer">
+      ${item.page_or_source?`<span class="card-src-page">${item.page_or_source}</span>`:''}
+    </div>
+  </div>`;
+}
+
+function empty(msg){
+  return `<div class="state-box"><p class="state-txt">${msg}</p></div>`;
+}
+function errBox(){
+  return `<div class="state-box"><p class="state-txt">تعذّر الاتصال بالخادم</p></div>`;
+}
+
+async function fetchToday(){
+  try{
+    const r=await fetch(`${API_BASE}/content/today`);
+    const d=await r.json();
+    document.getElementById('hadith-wrap').innerHTML=
+      d.hadith ? buildCard(d.hadith,'حديث اليوم') : empty('لم يُنشر حديث اليوم بعد');
+    document.getElementById('ayah-wrap').innerHTML=
+      d.ayah   ? buildCard(d.ayah,'آية اليوم')   : empty('لم تُنشر آية اليوم بعد');
+  }catch{
+    document.getElementById('hadith-wrap').innerHTML=errBox();
+    document.getElementById('ayah-wrap').innerHTML=errBox();
+  }
+}
+
+async function fetchArc(){
+  try{
+    const r=await fetch(`${API_BASE}/content/archive?limit=100`);
+    arcAll=await r.json();
+    renderArc(arcAll);
+  }catch{
+    document.getElementById('archive-wrap').innerHTML=errBox();
+  }
+}
+
+function renderArc(list){
+  const el=document.getElementById('archive-wrap');
+  if(!list?.length){ el.innerHTML=empty('لا يوجد محتوى في الأرشيف بعد'); return; }
+  el.innerHTML=`<div class="arc-list">${list.map(i=>{
+    const isH=i.content_type==='hadith';
+    const dt=i.published_at?new Date(i.published_at).toLocaleDateString('ar-IQ'):'';
+    return `<div class="arc-card">
+      <span class="arc-badge ${isH?'bdg-h':'bdg-a'}">${isH?'📖 حديث':'🌙 آية'}</span>
+      <p class="arc-txt">${i.text}</p>
+      <div class="arc-meta">
+        <span>${i.name||''}</span>
+        <span>${[i.page_or_source,dt].filter(Boolean).join(' • ')}</span>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function filterArc(type,btn){
+  document.querySelectorAll('.f-pill').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderArc(type==='all'?arcAll:arcAll.filter(i=>i.content_type===type));
+}
+
+let arcLoaded=false;
+function showTab(tab,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(`sec-${tab}`).classList.add('active');
+  btn.classList.add('active');
+  if(tab==='archive'&&!arcLoaded){ arcLoaded=true; fetchArc(); }
+}
+
+fetchToday();
+</script>
+</body>
+</html>
